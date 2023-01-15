@@ -3,7 +3,14 @@ import userController from "../controllers/UserController";
 
 const router = new Router();
 
+// criar usuario
 router.post("/", userController.create);
+// trazer todos os usuarios
+router.get("/", userController.index);
+//trazer usuario por id
+router.get("/:id", userController.show);
+//atualizar usuario
+router.put("/:id",userController.update)
 
 export default router;
 
