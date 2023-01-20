@@ -1,12 +1,13 @@
 import { Router } from "express";
 import userController from "../controllers/UserController";
+import loginRequired from "../middlewares/loginRequired";
 
 const router = new Router();
 
 // criar usuario
 router.post("/", userController.create);
 // trazer todos os usuarios
-router.get("/", userController.index);
+router.get("/",loginRequired, userController.index);
 //trazer usuario por id
 router.get("/:id", userController.show);
 //atualizar usuario
