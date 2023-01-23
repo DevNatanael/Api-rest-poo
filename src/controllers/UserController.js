@@ -16,7 +16,7 @@ class UserController {
   //retornar todos os usuarios - GET
   async index(req, res) {
     try {
-      const users = await User.findAll();
+      const users = await User.findAll({ attributes: ["id", "nome", "email"] });
       return res.json(users);
     } catch (error) {
       return res.json(null);
@@ -26,9 +26,10 @@ class UserController {
   // retorna um usuário - GET
   async show(req, res) {
     try {
-      const { id } = req.params;
-      const user = await User.findByPk(id);
-      return res.json(user);
+      const user = await User.findByPk(req.params.id);
+
+      const { id, nome, email } = user;
+      return res.json({ id, nome, email });
     } catch (error) {
       return res.json(null);
     }
@@ -37,14 +38,7 @@ class UserController {
   //Update
   async update(req, res) {
     try {
-      const { id } = req.params;
-
-      if (!id) {
-        return res.status(400).json({
-          erros: ["Id não enviado"],
-        });
-      }
-      const user = await User.findByPk(id);
+      const user = await User.findByPk(req.userId);
 
       if (!user) {
         return res.status(400).json({
@@ -64,14 +58,7 @@ class UserController {
 
   async delete(req, res) {
     try {
-      const { id } = req.params;
-
-      if (!id) {
-        return res.status(400).json({
-          erros: ["Id não enviado"],
-        });
-      }
-      const user = await User.findByPk(id);
+      const user = await User.findByPk(req.userId);
 
       if (!user) {
         return res.status(400).json({
