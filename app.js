@@ -23,7 +23,7 @@ class App {
   routes() {
     this.app.use("/", homeRoutes);
     this.app.use("/users/", userRoutes);
-    this.app.use("/tokens/", tokenRoutes);
+    this.app.use("/tokens/", tokenRoutes); // rota de login
     this.app.use("/alunos/", alunoRoutes);
   }
 }
