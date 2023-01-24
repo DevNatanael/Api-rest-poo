@@ -5,7 +5,8 @@ class UserController {
   async create(req, res) {
     try {
       const novoUser = await User.create(req.body);
-      return res.json(novoUser);
+      const {id , nome, email} = novoUser
+      return res.json({id , nome, email});
     } catch (error) {
       return res.status(400).json({
         errors: error.errors.map((err) => err.message),
@@ -47,8 +48,8 @@ class UserController {
       }
 
       const newUser = await user.update(req.body);
-
-      return res.json(newUser);
+      const {id , nome, email} = newUser
+      return res.json({id , nome, email});
     } catch (error) {
       return res.status(400).json({
         errors: error.errors.map((err) => err.message),
