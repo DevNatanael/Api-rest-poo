@@ -1,6 +1,5 @@
 import User from "../models/User";
 import jwt from 'jsonwebtoken'
-
 class TokenController {
   async store(req, res) {
     try {
@@ -26,13 +25,16 @@ class TokenController {
         })
       }
       const {id} = user
+
       const token = jwt.sign({id, email}, process.env.TOKEN_SECRET, {
         expiresIn: process.env.TOKEN_EXPIRATION
       })
 
-      res.status(200).json({token});
+
+      res.status(200).json(token);
     } catch (error) {
-      console.log(error);
+      console.log(error)
+      return res.status(400).json("erro: " + error);
     }
   }
 }
