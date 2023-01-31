@@ -31,7 +31,7 @@ class TokenController {
       })
 
 
-      res.status(200).json(token);
+      res.status(200).json({token, user:{nome: user.nome, id,email}});
     } catch (error) {
       console.log(error)
       return res.status(400).json("erro: " + error);
